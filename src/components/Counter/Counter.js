@@ -16,9 +16,9 @@ export class Counter extends PureComponent {
     const { value, onIncrement, onDecrement } = this.props
     return (
       <p>
-        <button onClick={onDecrement}>-</button>
+        <button type='button' onClick={onDecrement}>-</button>
           {` ${value} `}
-        <button onClick={onIncrement}>+</button>
+        <button type='button' onClick={onIncrement}>+</button>
       </p>
     )
   }
