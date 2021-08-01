@@ -20,7 +20,7 @@ export const loginAction = (email, password) => dispatch => {
     })
 };
 
-export const logoutAction = () => dispatch => {
+export const logoutAction = () => (dispatch) => {
   localStorage.removeItem('ff:token');
   dispatch(authRemoveToken());
 };
