@@ -1,39 +1,57 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
-  BrowserRouter as Router,
-  Switch,
+  Link,
   Route,
-  Link
+  Switch,
+  BrowserRouter as Router,
 } from 'react-router-dom';
+import { PrivateRoute } from './hoc/PrivateRoute'
 import { Dashboard } from './components/Dashboard'
 import { Counter } from './components/Counter'
+import { Login, Logout } from './components/Auth'
 
-function App() {
-  return (
-    <Router>
-      <nav>
-        <ul>
-          <li>
-            <Link to='/'>Dashboard</Link>
-          </li>
-          <li>
-            <Link to='/counter'>Counter</Link>
-          </li>
-        </ul>
-      </nav>
+const mapStateToProps = (state) => ({
+  isAuth: Boolean(state.auth?.token),
+});
 
-      <section>
-        <Switch>
-          <Route exact path='/'>
-            <Dashboard />
-          </Route>
-          <Route path='/counter'>
-            <Counter/>
-          </Route>
-        </Switch>
-      </section>
-    </Router>
-  );
-}
+const App = ({ isAuth }) => (
+  <Router>
+    <nav>
+      <ul>
+        <li>
+          {
+            isAuth
+              ? <Link to='/logout'>Logout</Link>
+              : <Link to='/login'>Login</Link>
+          }
+        </li>
+        <li>
+          <Link to='/'>Dashboard</Link>
+        </li>
+        <li>
+          <Link to='/counter'>Counter</Link>
+        </li>
+      </ul>
+    </nav>
 
-export default App;
+    <section>
+      <Switch>
+        <Route exact path='/'>
+          <Dashboard />
+        </Route>
+        <PrivateRoute path='/counter'>
+          <Counter/>
+        </PrivateRoute>
+        <Route path='/login'>
+          <Login/>
+        </Route>
+        <Route path='/logout'>
+          <Logout/>
+        </Route>
+      </Switch>
+    </section>
+  </Router>
+);
+
+export default connect(mapStateToProps)(App)

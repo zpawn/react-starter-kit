@@ -13,7 +13,7 @@ export const decrementAction = () => ({
 });
 
 // Reducers
-export const counter = (state = 0, action) => {
+export const counterReducer = (state = 0, action) => {
   switch (action.type) {
     case actionTypes.INCREMENT:
       return state + 1

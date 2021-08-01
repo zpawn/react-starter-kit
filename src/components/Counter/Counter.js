@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { incrementAction, decrementAction } from '../../store/reducers/counter'
+import { incrementAction, decrementAction } from '../../store/counter'
 
 const mapStateToProps = (state, ownProps) => ({
   value: state.counter,
